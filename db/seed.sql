@@ -11,7 +11,8 @@ insert into jobs (id, company, role, status, notes, created_at) values
   ('5', 'Microsoft', 'Full Stack Engineer',      'rejected',  null,                      '2026-01-05');
 
 insert into interviews (job_id, date, done) values
-  ('2', '2026-05-15', false),
-  ('2', '2026-05-20', false);
+  ('2', '2026-05-15', true),
+  ('2', '2026-05-20', false),
+  ('2', '2026-05-25', false);
 
 commit;
