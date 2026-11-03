@@ -11,11 +11,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run lint` — ESLint 9 flat config (`eslint-config-next` core-web-vitals + typescript)
 - `npm run lint:css` — Stylelint (`stylelint-config-standard`, with Tailwind v4 at-rules allowed)
 - `npm run format` / `npm run format:check` — Prettier (with `prettier-plugin-tailwindcss`, which sorts classes, including inside `cn()`/`cva()`)
-- `npx tsc --noEmit` — type-check only
+- `next typegen && npx tsc --noEmit` — type-check only
 
 There is no test framework set up yet.
 
-Git hooks (Husky): `pre-commit` runs lint-staged (ESLint --fix / Stylelint --fix + Prettier on staged files; config in `lint-staged.config.mjs`), and `commit-msg` runs commitlint, so commit messages must follow Conventional Commits (`feat: …`, `fix: …`, `chore: …`).
+Git hooks (Husky): `pre-commit` runs lint-staged (ESLint --fix / Stylelint --fix + Prettier on staged files; config in `lint-staged.config.mjs`), and `commit-msg` runs commitlint, so commit messages must follow Conventional Commits (`feat: …`, `fix: …`, `chore: …`). `npm run commit` opens the Commitizen prompt (`@commitlint/cz-commitlint` adapter, so its questions follow the commitlint config).
 
 ## Stack and architecture
 
