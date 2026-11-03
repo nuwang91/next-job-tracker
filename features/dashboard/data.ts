@@ -1,8 +1,8 @@
 import "server-only";
 import { pool } from "@/lib/db";
-import { connection } from "next/server";
 import { DashboardStats } from "./types";
 import { ApplicationStatus } from "../jobs/types";
+import { connection } from "next/server";
 
 export const getDashboardStats = async (): Promise<DashboardStats> => {
   await connection();
