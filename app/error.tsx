@@ -9,12 +9,11 @@ type ErrorPageProps = {
 };
 
 const ErrorPage = ({ error, retry }: ErrorPageProps) => {
+  console.error(error);
   return (
     <ErrorState
       title="Error!!!"
-      description={
-        error instanceof Error ? error.message : "Something went wrong!"
-      }
+      description="Something went wrong!"
       onRetry={retry}
       icon={<MessageCircleWarning />}
     ></ErrorState>
