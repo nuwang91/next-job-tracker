@@ -1,32 +1,24 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import type { ReactNode } from "react";
+import { ErrorState } from "@/components/ErrorState";
+import { MessageCircleWarning } from "lucide-react";
 
-type ErrorStateProps = {
-  title: string;
-  icon?: ReactNode;
-  description?: string;
-  onRetry?: () => void;
+type ErrorPageProps = {
+  error: unknown;
+  retry: () => void;
 };
 
-const ErrorState = ({ title, description, icon, onRetry }: ErrorStateProps) => {
+const ErrorPage = ({ error, retry }: ErrorPageProps) => {
   return (
-    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed border-destructive/40 p-10 text-center">
-      {icon}
-      <p className="font-medium text-destructive">{title}</p>
-      {description && (
-        <p className="text-sm text-muted-foreground">{description}</p>
-      )}
-      {onRetry && (
-        <div className="mt-2">
-          <Button onClick={onRetry} variant="outline" size="sm">
-            Retry
-          </Button>
-        </div>
-      )}
-    </div>
+    <ErrorState
+      title="Error!!!"
+      description={
+        error instanceof Error ? error.message : "Something went wrong!"
+      }
+      onRetry={retry}
+      icon={<MessageCircleWarning />}
+    ></ErrorState>
   );
 };
 
-export default ErrorState;
+export default ErrorPage;
