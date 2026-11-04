@@ -4,8 +4,11 @@ import { Suspense } from "react";
 
 export default function Home() {
   return (
-    <Suspense fallback={<StatsSkeleton />}>
-      <StatsCards />
-    </Suspense>
+    <main>
+      <h1>Dashboard</h1>
+      <Suspense fallback={<StatsSkeleton />}>
+        <StatsCards />
+      </Suspense>
+    </main>
   );
 }
