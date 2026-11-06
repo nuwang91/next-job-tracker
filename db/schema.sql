@@ -1,5 +1,5 @@
 create table if not exists jobs (
-  id         text primary key,
+  id         integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   company    text not null,
   role       text not null,
   status     text not null check (status in ('applied', 'interview', 'offer', 'rejected')),
@@ -9,7 +9,7 @@ create table if not exists jobs (
 
 create table if not exists interviews (
   id     text primary key default gen_random_uuid()::text,
-  job_id text not null references jobs (id) on delete cascade,
+  job_id integer not null references jobs (id) on delete cascade,
   date   timestamptz not null,
   done   boolean not null default false
 );

@@ -15,6 +15,7 @@
     "db:down": "docker compose down",
     "db:schema": "docker compose exec -T db psql -U tracker -d job_tracker -v ON_ERROR_STOP=1 < db/schema.sql",
     "db:seed": "docker compose exec -T db psql -U tracker -d job_tracker -v ON_ERROR_STOP=1 < db/seed.sql",
+    "db:drop": "docker compose exec -T db psql -U tracker -d job_tracker -v ON_ERROR_STOP=1 < db/drop.sql",
     "commit": "cz"
   },
   "dependencies": {
