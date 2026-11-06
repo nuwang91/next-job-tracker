@@ -10,12 +10,12 @@ const JobDetails = async ({ params }: JobDetailsProps) => {
   return <span>{id}</span>;
 };
 
-const JobsPage = ({ params }: PageProps<"/jobs">) => {
+const JobsPage = ({ params }: PageProps<"/jobs/[id]">) => {
   return (
     <main>
       <h1>Job Details</h1>
       <Suspense fallback={<Skeleton className="h-32 w-full rounded-xl" />}>
-        <JobDetails params={params as Promise<{ id: string }>}></JobDetails>
+        <JobDetails params={params}></JobDetails>
       </Suspense>
     </main>
   );

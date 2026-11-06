@@ -8,12 +8,12 @@ export const APPLICATION_STATUSES = [
 export type ApplicationStatus = (typeof APPLICATION_STATUSES)[number];
 
 export interface JobApplication {
-  id: string;
+  id: number;
   company: string;
   role: string;
   status: ApplicationStatus;
-  notes?: string;
-  createdAt: string;
+  notes: string | null;
+  createdAt: Date;
   interviews: number;
 }
 
@@ -28,7 +28,7 @@ export type JobInput = Pick<
   "company" | "role" | "status" | "notes"
 >;
 
-export type CreatedJob = Omit<JobApplication, "interviews">;
+export type CreatedJob = Pick<JobApplication, "id">;
 
 export const isValidStatus = (value: unknown): value is ApplicationStatus => {
   return APPLICATION_STATUSES.includes(value as ApplicationStatus);

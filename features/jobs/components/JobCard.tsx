@@ -39,7 +39,8 @@ export const JobCard = ({
         </CardAction>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        Applied {formatDate(createdAt, "short")} · {interviews} interview(s)
+        Applied {formatDate(createdAt.toISOString(), "short")} · {interviews}{" "}
+        interview(s)
       </CardContent>
       <CardFooter className="justify-end gap-2">
         {footer}

@@ -1,7 +1,7 @@
 begin;
 
 -- Start from a clean slate every time you run this
-truncate interviews, jobs;
+truncate table interviews, jobs restart identity;
 
 insert into jobs (company, role, status, notes, created_at) values
   ('GIC',       'Software Engineer',        'applied',   null,                      '2026-01-03'),
