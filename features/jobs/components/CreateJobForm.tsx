@@ -8,12 +8,15 @@ import { Input } from "@/components/ui/input";
 import { ChipGroup } from "@/components/ChipGroup";
 import { useActionState, useState } from "react";
 import { createJob } from "../actions";
+import { useRouter } from "next/navigation";
+import { StatusInfo } from "./StatusBadge";
 
 type CreateJobFormProps = {
   initialValues: JobInput;
 };
 
 export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
+  const router = useRouter();
   const [status, setStatus] = useState<ApplicationStatus>(initialValues.status);
   const [state, formAction, pending] = useActionState(createJob, {
     error: null,
@@ -21,12 +24,13 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
   const fieldErrors =
     state.error?.type === "validation" ? state.error.fields : {};
   return (
-    <form className="grid gap-4" noValidate action={formAction}>
+    <form className="grid max-w-xl gap-4" noValidate action={formAction}>
       <Field data-invalid={!!fieldErrors.company}>
         <FieldLabel htmlFor="company">Company</FieldLabel>
         <Input
           id="company"
           name="company"
+          required
           type="text"
           placeholder="Company"
           aria-invalid={!!fieldErrors.company}
@@ -45,6 +49,7 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
         <Input
           id="role"
           name="role"
+          required
           type="text"
           placeholder="Role"
           aria-invalid={!!fieldErrors.role}
@@ -61,24 +66,31 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
 
       <Field data-invalid={!!fieldErrors.status}>
         <FieldLabel>Status</FieldLabel>
-        <input
-          type="hidden"
-          name="status"
-          value={
-            state.error && state.error.type === "validation"
-              ? state.error.values.status
-              : status
-          }
-        />
+        <input type="hidden" name="status" value={status} />
         <ChipGroup
           options={APPLICATION_STATUSES}
-          value={
-            state.error && state.error.type === "validation"
-              ? state.error.values.status
-              : status
-          }
+          value={status}
           ariaLabel="Status"
           onChange={(e) => setStatus(e)}
+          getLabel={(option) => {
+            return StatusInfo[option].label;
+          }}
+          chipStyleClass={(option) => {
+            switch (option) {
+              case "applied":
+                return "text-status-applied";
+              case "interview":
+                return "text-status-interview";
+              case "offer":
+                return "text-status-offer";
+              case "rejected":
+                return "text-status-rejected";
+              default: {
+                const exception: never = option;
+                return exception;
+              }
+            }
+          }}
         ></ChipGroup>
         {fieldErrors.status && (
           <FieldError errors={[{ message: fieldErrors.status }]} />
@@ -110,6 +122,15 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
       )}
 
       <div className="flex justify-end gap-2">
+        <Button
+          type="button"
+          disabled={pending}
+          onClick={() => {
+            router.push("/jobs");
+          }}
+        >
+          Cancel
+        </Button>
         <Button type="submit" disabled={pending}>
           {pending ? "Saving…" : "Save"}
         </Button>

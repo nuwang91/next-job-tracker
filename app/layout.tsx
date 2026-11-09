@@ -33,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <NavLink href="/jobs/new">New job</NavLink>
           </nav>
         </header>
-        {children}
+        <div className="mx-auto w-full max-w-3xl px-4 py-8">{children}</div>
       </body>
       <Toaster />
     </html>

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "cn";
 
 type ChipGroupProps<T> = {
   options: readonly T[];
@@ -6,6 +7,7 @@ type ChipGroupProps<T> = {
   ariaLabel: string;
   onChange: (option: T) => void;
   getLabel?: (option: T) => string;
+  chipStyleClass?: (option: T) => string;
 };
 
 export const ChipGroup = <T extends string>({
@@ -14,6 +16,7 @@ export const ChipGroup = <T extends string>({
   ariaLabel,
   onChange,
   getLabel,
+  chipStyleClass,
 }: ChipGroupProps<T>) => {
   return (
     <div role="group" aria-label={ariaLabel} className="flex flex-wrap gap-1">
@@ -26,6 +29,7 @@ export const ChipGroup = <T extends string>({
             size="sm"
             variant={isActive ? "secondary" : "ghost"}
             aria-pressed={isActive}
+            className={cn(chipStyleClass ? chipStyleClass(option) : "")}
           >
             {getLabel ? getLabel(option) : option}
           </Button>

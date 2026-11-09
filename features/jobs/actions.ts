@@ -47,50 +47,50 @@ export async function createJob(
   const status = formData.get("status");
   const notes = formData.get("notes") || null;
 
-  const existingValues = {
-    values: {
-      company: String(company),
-      role: String(role),
-      notes: typeof notes === "string" ? notes : "",
-      status: isValidStatus(status) ? status : "applied",
+  const jobFormFieldValidationError: JobFormState = {
+    error: {
+      type: "validation",
+      fields: {},
+      values: {
+        company: String(company),
+        role: String(role),
+        notes: typeof notes === "string" ? notes : "",
+        status: isValidStatus(status) ? status : "applied",
+      },
     },
   };
 
-  if (!company || typeof company !== "string")
-    return {
-      error: {
-        type: "validation",
-        fields: { company: "Company is required" },
-        ...existingValues,
-      },
+  if (!company || typeof company !== "string" || company.trim() === "") {
+    jobFormFieldValidationError.error.fields = {
+      ...jobFormFieldValidationError.error.fields,
+      company: "Company is required",
     };
+  }
 
-  if (!role || typeof role !== "string")
-    return {
-      error: {
-        type: "validation",
-        fields: { role: "Role is required" },
-        ...existingValues,
-      },
+  if (!role || typeof role !== "string" || role.trim() === "") {
+    jobFormFieldValidationError.error.fields = {
+      ...jobFormFieldValidationError.error.fields,
+      role: "Role is required",
     };
+  }
 
-  if (!isValidStatus(status))
-    return {
-      error: {
-        type: "validation",
-        fields: { status: "Invalid Status" },
-        ...existingValues,
-      },
+  if (!isValidStatus(status)) {
+    jobFormFieldValidationError.error.fields = {
+      ...jobFormFieldValidationError.error.fields,
+      status: "Invalid Status",
     };
+  }
 
-  if (notes && typeof notes !== "string")
-    return {
-      error: {
-        type: "validation",
-        fields: { notes: "Invalid notes" },
-        ...existingValues,
-      },
+  if (notes && typeof notes !== "string") {
+    jobFormFieldValidationError.error.fields = {
+      ...jobFormFieldValidationError.error.fields,
+      notes: "Invalid notes",
     };
+  }
+
+  if (Object.keys(jobFormFieldValidationError.error.fields).length > 0) {
+    return jobFormFieldValidationError;
+  }
 
   try {
     const { rows } = await pool.query<CreatedJob>(

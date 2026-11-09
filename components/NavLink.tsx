@@ -1,6 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import Link from "next/link";
+
 import { usePathname } from "next/navigation";
 
 type NavLinkProps = {
@@ -13,7 +15,7 @@ export default function NavLink({ href, children }: NavLinkProps) {
   const isActive = pathname === href;
 
   return (
-    <a
+    <Link
       href={href}
       className={cn(
         "text-muted-foreground hover:text-foreground",
@@ -22,6 +24,6 @@ export default function NavLink({ href, children }: NavLinkProps) {
       aria-current={isActive ? "page" : undefined}
     >
       {children}
-    </a>
+    </Link>
   );
 }

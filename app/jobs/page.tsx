@@ -1,3 +1,4 @@
+import { PageHeader } from "@/components/PageHeader";
 import { JobCardSkeleton } from "@/features/jobs/components/JobCardSkeleton";
 import { JobsList } from "@/features/jobs/components/JobsList";
 import { Suspense } from "react";
@@ -17,7 +18,7 @@ const JobListing = async ({ searchParams }: JobListingProps) => {
 const JobsPage = ({ searchParams }: PageProps<"/jobs">) => {
   return (
     <main>
-      <h1>Jobs</h1>
+      <PageHeader title="Jobs"></PageHeader>
       <Suspense fallback={<JobCardSkeleton />}>
         <JobListing searchParams={searchParams}></JobListing>
       </Suspense>

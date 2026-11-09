@@ -1,9 +1,10 @@
+import { PageHeader } from "@/components/PageHeader";
 import { CreateJobForm } from "@/features/jobs/components/CreateJobForm";
 
 const NewJobPage = () => {
   return (
     <main>
-      <h1>Create new Job</h1>
+      <PageHeader title="Create new Job"></PageHeader>
       <CreateJobForm
         initialValues={{
           company: "",

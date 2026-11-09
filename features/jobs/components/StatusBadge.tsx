@@ -7,7 +7,7 @@ type StatusBagdeProps = Omit<ComponentProps<typeof Badge>, "children"> & {
   status: ApplicationStatus;
 };
 
-const StatusInfo: Record<
+export const StatusInfo: Record<
   ApplicationStatus,
   { label: string; className: string }
 > = {

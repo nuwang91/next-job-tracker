@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import {
   Card,
   CardHeader,
@@ -6,7 +5,6 @@ import {
   CardDescription,
   CardAction,
   CardContent,
-  CardFooter,
 } from "@/components/ui/card";
 import type { JobApplication } from "@/features/jobs/types";
 import { StatusBadge } from "./StatusBadge";
@@ -16,9 +14,7 @@ import { deleteJob } from "../actions";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 
-type JobCardProps = Omit<JobApplication, "notes"> & {
-  footer?: ReactNode;
-};
+type JobCardProps = Omit<JobApplication, "notes">;
 
 export const JobCard = ({
   id,
@@ -27,7 +23,6 @@ export const JobCard = ({
   status,
   interviews,
   createdAt,
-  footer,
 }: JobCardProps) => {
   return (
     <Card>
@@ -39,22 +34,20 @@ export const JobCard = ({
         </CardAction>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        Applied {formatDate(createdAt.toISOString(), "short")} · {interviews}{" "}
-        interview(s)
+        Applied {formatDate(createdAt, "short")} · {interviews} interview(s)
+        <div className="flex justify-end">
+          <Link
+            href={`/jobs/${id}`}
+            className={buttonVariants({ variant: "ghost", size: "sm" })}
+          >
+            View
+          </Link>
+          <form action={deleteJob}>
+            <input type="hidden" name="id" value={id} />
+            <DeleteJobButton company={company} role={role}></DeleteJobButton>
+          </form>
+        </div>
       </CardContent>
-      <CardFooter className="justify-end gap-2">
-        {footer}
-        <Link
-          href={`/jobs/${id}`}
-          className={buttonVariants({ variant: "ghost", size: "sm" })}
-        >
-          View
-        </Link>
-        <form action={deleteJob}>
-          <input type="hidden" name="id" value={id} />
-          <DeleteJobButton company={company} role={role}></DeleteJobButton>
-        </form>
-      </CardFooter>
     </Card>
   );
 };
