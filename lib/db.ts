@@ -6,6 +6,9 @@ const globalForDb = globalThis as typeof globalThis & { pgPool?: Pool };
 
 export const pool =
   globalForDb.pgPool ??
-  new Pool({ connectionString: process.env.DATABASE_URL });
+  new Pool({
+    connectionString: process.env.DATABASE_URL,
+    connectionTimeoutMillis: 5_000,
+  });
 
 if (process.env.NODE_ENV !== "production") globalForDb.pgPool = pool;

@@ -14,7 +14,9 @@
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
     "db:schema": "docker compose exec -T db psql -U tracker -d job_tracker -v ON_ERROR_STOP=1 < db/schema.sql",
-    "db:seed": "docker compose exec -T db psql -U tracker -d job_tracker -v ON_ERROR_STOP=1 < db/seed.sql"
+    "db:seed": "docker compose exec -T db psql -U tracker -d job_tracker -v ON_ERROR_STOP=1 < db/seed.sql",
+    "db:drop": "docker compose exec -T db psql -U tracker -d job_tracker -v ON_ERROR_STOP=1 < db/drop.sql",
+    "commit": "cz"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -32,15 +34,18 @@
   "devDependencies": {
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
+    "@commitlint/cz-commitlint": "^21.2.4",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "commitizen": "^4.3.2",
     "eslint": "^9",
     "eslint-config-next": "16.4.4",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
+    "inquirer": "^9.3.8",
     "lint-staged": "^17.6.0",
     "prettier": "^3.9.10",
     "prettier-plugin-tailwindcss": "^0.8.1",
@@ -48,5 +53,10 @@
     "stylelint-config-standard": "^40.0.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
   }
 }
