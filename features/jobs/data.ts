@@ -1,10 +1,12 @@
 import "server-only";
 import { JobApplication } from "./types";
-import { connection } from "next/server";
 import { pool } from "@/lib/db";
+import { cacheLife, cacheTag } from "next/cache";
 
 export const getJobs = async (id?: string): Promise<JobApplication[]> => {
-  await connection();
+  "use cache";
+  cacheLife("hours");
+  cacheTag("jobs");
 
   if (id && typeof id === "string") {
     const { rows } = await pool.query<JobApplication>(
