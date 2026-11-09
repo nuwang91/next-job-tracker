@@ -2,7 +2,7 @@
 
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { APPLICATION_STATUSES, ApplicationStatus, JobInput } from "../types";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { ChipGroup } from "@/components/ChipGroup";
@@ -10,6 +10,7 @@ import { useActionState, useState } from "react";
 import { createJob } from "../actions";
 import { useRouter } from "next/navigation";
 import { StatusInfo } from "./StatusBadge";
+import Link from "next/link";
 
 type CreateJobFormProps = {
   initialValues: JobInput;
@@ -76,20 +77,13 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
             return StatusInfo[option].label;
           }}
           chipStyleClass={(option) => {
-            switch (option) {
-              case "applied":
-                return "text-status-applied";
-              case "interview":
-                return "text-status-interview";
-              case "offer":
-                return "text-status-offer";
-              case "rejected":
-                return "text-status-rejected";
-              default: {
-                const exception: never = option;
-                return exception;
-              }
+            if (status === option) {
+              return (
+                StatusInfo[option].className +
+                ` ring-2 ring-status-interview/20`
+              );
             }
+            return StatusInfo[option].className;
           }}
         ></ChipGroup>
         {fieldErrors.status && (
@@ -122,15 +116,9 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
       )}
 
       <div className="flex justify-end gap-2">
-        <Button
-          type="button"
-          disabled={pending}
-          onClick={() => {
-            router.push("/jobs");
-          }}
-        >
+        <Link href="/jobs" className={buttonVariants({ variant: "outline" })}>
           Cancel
-        </Button>
+        </Link>
         <Button type="submit" disabled={pending}>
           {pending ? "Saving…" : "Save"}
         </Button>

@@ -34,8 +34,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </nav>
         </header>
         <div className="mx-auto w-full max-w-3xl px-4 py-8">{children}</div>
+        <Toaster />
       </body>
-      <Toaster />
     </html>
   );
 }

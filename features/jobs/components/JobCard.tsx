@@ -34,7 +34,7 @@ export const JobCard = ({
         </CardAction>
       </CardHeader>
       <CardContent className="text-sm text-muted-foreground">
-        Applied {formatDate(createdAt, "short")} · {interviews} interview(s)
+        Applied {formatDate(createdAt, "short")} · {interviews} interviews
         <div className="flex justify-end">
           <Link
             href={`/jobs/${id}`}

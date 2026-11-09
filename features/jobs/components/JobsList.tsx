@@ -13,12 +13,7 @@ export const JobsList = async ({ id }: JobsListProps) => {
 
   return (
     <>
-      {id && (
-        <ToastMessage
-          type="success"
-          message={`Job ${id} Created Successfully`}
-        ></ToastMessage>
-      )}
+      {id && <ToastMessage type="success" message="Job Created"></ToastMessage>}
       {jobs.length === 0 && (
         <EmptyState
           title="No applications yet"
