@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import NavLink from "./NavLink";
 import { cn } from "cn";
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 const links = [
   { href: "/", label: "Dashboard" },

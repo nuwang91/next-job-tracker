@@ -78,7 +78,8 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
             if (status === option) {
               return (
                 StatusInfo[option].className +
-                ` ring-2 ring-status-${option}/20`
+                " " +
+                StatusInfo[option].activeClassName
               );
             }
             return StatusInfo[option].className;

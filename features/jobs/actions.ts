@@ -1,7 +1,7 @@
 "use server";
 
 import { pool } from "@/lib/db";
-import { revalidatePath, updateTag } from "next/cache";
+import { updateTag } from "next/cache";
 import { CreatedJob, isValidStatus, JobInput } from "./types";
 import { redirect } from "next/navigation";
 
@@ -34,7 +34,6 @@ export async function deleteJob(formData: FormData) {
   await pool.query("delete from jobs j WHERE j.id = $1;", [jobId]);
 
   updateTag("jobs");
-  revalidatePath("/");
 }
 
 export async function createJob(
