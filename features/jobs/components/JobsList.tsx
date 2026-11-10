@@ -6,10 +6,11 @@ import { Briefcase } from "lucide-react";
 
 type JobsListProps = {
   id?: string;
+  query: string;
 };
 
-export const JobsList = async ({ id }: JobsListProps) => {
-  const jobs = await getJobs();
+export const JobsList = async ({ id, query }: JobsListProps) => {
+  const jobs = await getJobs(query);
 
   return (
     <>
@@ -21,7 +22,7 @@ export const JobsList = async ({ id }: JobsListProps) => {
         ></EmptyState>
       )}
       {jobs.length > 0 && (
-        <ul className="grid list-none gap-3">
+        <ul className="grid w-full list-none gap-3">
           {jobs.map((job) => {
             return (
               <li key={job.id}>
