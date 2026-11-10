@@ -10,7 +10,7 @@ type JobsListProps = {
 };
 
 export const JobsList = async ({ id, query }: JobsListProps) => {
-  const jobs = await getJobs(query);
+  const jobs = await getJobs(query.trim());
 
   return (
     <>

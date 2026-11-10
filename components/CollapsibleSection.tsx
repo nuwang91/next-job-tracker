@@ -16,7 +16,7 @@ type CollapsibleSection = {
 
 export const CollapsibleSection = ({ children, title }: CollapsibleSection) => {
   return (
-    <Collapsible className="rounded-md data-open:bg-muted">
+    <Collapsible className="rounded-md data-open:bg-muted" defaultOpen={true}>
       <CollapsibleTrigger
         render={
           <Button variant="ghost" className="w-full">
