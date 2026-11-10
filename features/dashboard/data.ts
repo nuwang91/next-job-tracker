@@ -1,10 +1,12 @@
 import "server-only";
 import { pool } from "@/lib/db";
-import { connection } from "next/server";
 import type { DashboardStats } from "./types";
+import { cacheLife, cacheTag } from "next/cache";
 
 export const getDashboardStats = async (): Promise<DashboardStats> => {
-  await connection();
+  "use cache";
+  cacheLife("hours");
+  cacheTag("jobs");
   const { rows } = await pool.query<DashboardStats>(`
     SELECT
       COUNT(j.id)::int AS "totalApplications",

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import NavLink from "@/components/NavLink";
 import { Toaster } from "@/components/ui/toast";
+import { MainNav } from "@/components/MainNav";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,11 +27,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         <header className="border-b">
-          <nav className="mx-auto flex max-w-3xl items-center gap-4 p-4 text-sm">
-            <NavLink href="/">Dashboard</NavLink>
-            <NavLink href="/jobs">Jobs</NavLink>
-            <NavLink href="/jobs/new">New job</NavLink>
-          </nav>
+          <MainNav></MainNav>
         </header>
         <div className="mx-auto w-full max-w-3xl px-4 py-8">{children}</div>
         <Toaster />

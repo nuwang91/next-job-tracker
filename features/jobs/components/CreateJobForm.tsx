@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { ChipGroup } from "@/components/ChipGroup";
 import { useActionState, useState } from "react";
 import { createJob } from "../actions";
-import { useRouter } from "next/navigation";
 import { StatusInfo } from "./StatusBadge";
 import Link from "next/link";
 
@@ -17,7 +16,6 @@ type CreateJobFormProps = {
 };
 
 export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
-  const router = useRouter();
   const [status, setStatus] = useState<ApplicationStatus>(initialValues.status);
   const [state, formAction, pending] = useActionState(createJob, {
     error: null,
@@ -80,7 +78,8 @@ export const CreateJobForm = ({ initialValues }: CreateJobFormProps) => {
             if (status === option) {
               return (
                 StatusInfo[option].className +
-                ` ring-2 ring-status-interview/20`
+                " " +
+                StatusInfo[option].activeClassName
               );
             }
             return StatusInfo[option].className;
