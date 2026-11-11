@@ -1,8 +1,8 @@
-import { ToastMessage } from "@/components/ToastMessage";
 import { getJobs } from "../data";
 import { JobCard } from "./JobCard";
 import { EmptyState } from "@/components/EmptyState";
 import { Briefcase } from "lucide-react";
+import { JobCreatedToast } from "./JobCreatedToast";
 
 type JobsListProps = {
   id?: string;
@@ -14,7 +14,7 @@ export const JobsList = async ({ id, query }: JobsListProps) => {
 
   return (
     <>
-      {id && <ToastMessage type="success" message="Job Created"></ToastMessage>}
+      {id && <JobCreatedToast />}
       {jobs.length === 0 && (
         <EmptyState
           title="No applications yet"

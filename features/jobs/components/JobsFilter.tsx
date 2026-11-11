@@ -21,7 +21,7 @@ export const JobsFilter = () => {
     } else {
       params.delete("q");
     }
-    params.delete("created");
+
     const query = params.toString();
 
     router.replace(query ? `/jobs?${query}` : "/jobs");
