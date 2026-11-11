@@ -1,8 +1,9 @@
 "use client";
-import { Input } from "@/components/ui/input";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounceValue } from "../hooks/useDebounceValue";
+import Form from "next/form";
+import { Input } from "@/components/ui/input";
 
 export const JobsFilter = () => {
   const router = useRouter();
@@ -11,8 +12,6 @@ export const JobsFilter = () => {
   const debounced = useDebounceValue(filter, 300);
 
   useEffect(() => {
-    if (debounced == null) return;
-
     if (debounced === (searchParams.get("q") ?? "")) return;
 
     const params = new URLSearchParams(searchParams.toString());
@@ -29,11 +28,11 @@ export const JobsFilter = () => {
   }, [debounced, searchParams, router]);
 
   return (
-    <>
+    <Form action="/jobs">
       <Input
         type="search"
         id="search"
-        name="search"
+        name="q"
         aria-label="search jobs"
         placeholder="Search Jobs"
         value={filter}
@@ -42,6 +41,6 @@ export const JobsFilter = () => {
           setFilter(text);
         }}
       ></Input>
-    </>
+    </Form>
   );
 };
