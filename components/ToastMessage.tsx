@@ -6,17 +6,17 @@ import { toast } from "./ui/toast";
 type ToastMessageProps = {
   type: "success" | "info" | "warning" | "error";
   message: string;
+  id: string;
 };
 
-export const ToastMessage = ({ message, type }: ToastMessageProps) => {
+export const ToastMessage = ({ message, type, id }: ToastMessageProps) => {
   useEffect(() => {
     toast.add({
       type,
       description: message,
+      id,
     });
-
-    return () => toast.close();
-  }, [type, message]);
+  }, [type, message, id]);
 
   return null;
 };

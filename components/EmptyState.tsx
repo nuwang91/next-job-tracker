@@ -14,7 +14,7 @@ export const EmptyState = ({
   icon,
 }: EmptyStateProps) => {
   return (
-    <div className="flex flex-col items-center gap-2 rounded-xl border border-dashed p-10 text-center">
+    <div className="flex w-full flex-col items-center gap-2 rounded-xl border border-dashed p-10 text-center">
       {icon}
       <p className="font-medium">{title}</p>
       {description && (

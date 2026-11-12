@@ -1,19 +1,20 @@
-import { ToastMessage } from "@/components/ToastMessage";
 import { getJobs } from "../data";
 import { JobCard } from "./JobCard";
 import { EmptyState } from "@/components/EmptyState";
 import { Briefcase } from "lucide-react";
+import { JobCreatedToast } from "./JobCreatedToast";
 
 type JobsListProps = {
   id?: string;
+  query: string;
 };
 
-export const JobsList = async ({ id }: JobsListProps) => {
-  const jobs = await getJobs();
+export const JobsList = async ({ id, query }: JobsListProps) => {
+  const jobs = await getJobs(query.trim());
 
   return (
     <>
-      {id && <ToastMessage type="success" message="Job Created"></ToastMessage>}
+      {id && <JobCreatedToast />}
       {jobs.length === 0 && (
         <EmptyState
           title="No applications yet"
@@ -21,7 +22,7 @@ export const JobsList = async ({ id }: JobsListProps) => {
         ></EmptyState>
       )}
       {jobs.length > 0 && (
-        <ul className="grid list-none gap-3">
+        <ul className="grid w-full list-none gap-3">
           {jobs.map((job) => {
             return (
               <li key={job.id}>
